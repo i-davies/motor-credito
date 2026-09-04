@@ -1,0 +1,48 @@
+[project]
+name = "motor-credito"
+version = "0.1.0"
+description = "Motor de concessão e análise de limite de crédito"
+readme = "README.md"
+authors = [
+    { name = "Icaro Davies", email = "idavies@outlook.com" }
+]
+requires-python = ">=3.14"
+dependencies = [
+    "fastapi[standard]>=0.141.1",
+    "pydantic>=2.13.5",
+]
+
+[project.scripts]
+motor-credito = "motor_credito:main"
+
+[build-system]
+requires = ["uv_build>=0.12.9,<0.13.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "httpx>=0.28.1",
+    "pytest>=9.1.1",
+    "pytest-cov>=7.1.0",
+]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+addopts = "--cov=app --cov-branch --cov-report=term-missing --cov-report=html"
+markers = [
+    "unit: testes unitarios isolados",
+    "integration: testes de integracao de API",
+    "blackbox: testes de caixa preta (EP e BVA)",
+    "whitebox: testes de caixa branca (cobertura estrutural)",
+]
+filterwarnings = [
+    "ignore::starlette.exceptions.StarletteDeprecationWarning",
+    "ignore::DeprecationWarning",
+]
+
+[tool.coverage.run]
+omit = [
+    "*/__init__.py",
+]
